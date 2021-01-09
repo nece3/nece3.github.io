@@ -61,7 +61,7 @@ Opal.modules["utils/table"] = function(Opal) {
   return (function($base, $super, $parent_nesting) {
     var self = $klass($base, $super, 'ShinobiGami');
 
-    var $nesting = [self].concat($parent_nesting), $ShinobiGami_initialize$1, $ShinobiGami_check_2D6$2, $ShinobiGami_rollDiceCommand$3, $ShinobiGami_daigongen_command$20, $ShinobiGami_checkDaiGonGenRoll$21, $ShinobiGami_getTotalAdd$23, $ShinobiGami_sinobigami_random_skill_table$4, $ShinobiGami_sinobigami_metamorphose_table$5;
+    var $nesting = [self].concat($parent_nesting), $ShinobiGami_initialize$1, $ShinobiGami_check_2D6$2, $ShinobiGami_rollDiceCommand$3, $ShinobiGami_sinobigami_random_skill_table$4, $ShinobiGami_sinobigami_metamorphose_table$5;
 
     
     Opal.const_set($nesting[0], 'ID', "ShinobiGami");
@@ -127,9 +127,6 @@ Opal.modules["utils/table"] = function(Opal) {
 
       
       string = command.$upcase();
-      result = self.$checkDaiGonGenRoll(string);
-      if ($truthy(result)) {
-        return result};
       result = self.$roll_tables(command, $$($nesting, 'TABLES'));
       if ($truthy(result)) {
         return result};
@@ -139,129 +136,6 @@ Opal.modules["utils/table"] = function(Opal) {
       return nil;
     }, $ShinobiGami_rollDiceCommand$3.$$arity = 1);
     self.$private();
-    
-    Opal.def(self, '$daigongen_command', $ShinobiGami_daigongen_command$20 = function $$daigongen_command() {
-      var self = this;
-
-      return "((\\d+)T)?((\\d+)D)?(\\d+)?([\\+\\-\\d]*)>=(\\d+)?(S(\\d+))?(F(\\d+))?(S(\\d+))?"
-    }, $ShinobiGami_daigongen_command$20.$$arity = 0);
-    
-    Opal.def(self, '$checkDaiGonGenRoll', $ShinobiGami_checkDaiGonGenRoll$21 = function $$checkDaiGonGenRoll(string) {
-      var $a, $b, $$22, self = this, dice_use_num = nil, dice_num = nil, dice_kind = nil, plus_string = nil, target = nil, fumble = nil, special = nil, pluses = nil, _ = nil, result_string = nil, result_str_arr = nil, no_use_dice_num = nil, dice_value = nil, output = nil;
-
-      
-
-      if ($truthy($$($nesting, 'Regexp').$new(self.$daigongen_command())['$=~'](string))) {
-        
-        if ($truthy(($truthy($a = (($b = $gvars['~']) === nil ? nil : $b['$[]'](1))) ? $a : (($b = $gvars['~']) === nil ? nil : $b['$[]'](3))))) {
-        } else {
-          return nil
-        };
-        dice_use_num = (function() {if ($truthy((($a = $gvars['~']) === nil ? nil : $a['$[]'](4)))) {
-          return (($a = $gvars['~']) === nil ? nil : $a['$[]'](4)).$to_i()
-        } else {
-          return 2
-        }; return nil; })();
-        dice_num = (function() {if ($truthy((($a = $gvars['~']) === nil ? nil : $a['$[]'](2)))) {
-          return (($a = $gvars['~']) === nil ? nil : $a['$[]'](2)).$to_i()
-        } else {
-          return dice_use_num
-        }; return nil; })();
-        dice_kind = (function() {if ($truthy((($a = $gvars['~']) === nil ? nil : $a['$[]'](5)))) {
-          return (($a = $gvars['~']) === nil ? nil : $a['$[]'](5)).$to_i()
-        } else {
-          return 6
-        }; return nil; })();
-        plus_string = (($a = $gvars['~']) === nil ? nil : $a['$[]'](6));
-        target = (function() {if ($truthy((($a = $gvars['~']) === nil ? nil : $a['$[]'](7)))) {
-          return (($a = $gvars['~']) === nil ? nil : $a['$[]'](7)).$to_i()
-        } else {
-          
-          return $$$($$($nesting, 'Float'), 'INFINITY');
-        }; return nil; })();
-        fumble = (function() {if ($truthy((($a = $gvars['~']) === nil ? nil : $a['$[]'](11)))) {
-          return (($a = $gvars['~']) === nil ? nil : $a['$[]'](11)).$to_i()
-        } else {
-          return dice_use_num
-        }; return nil; })();
-        special = (function() {if ($truthy((($a = $gvars['~']) === nil ? nil : $a['$[]'](13)))) {
-          return (($a = $gvars['~']) === nil ? nil : $a['$[]'](13)).$to_i()
-        } else {
-          
-          if ($truthy((($a = $gvars['~']) === nil ? nil : $a['$[]'](9)))) {
-            return (($a = $gvars['~']) === nil ? nil : $a['$[]'](9)).$to_i()
-          } else {
-            return $rb_times(dice_use_num, dice_kind)
-          };
-        }; return nil; })();
-        pluses = self.$getTotalAdd(plus_string);
-        if ($truthy(pluses)) {
-        } else {
-          return nil
-        };
-        $b = self.$roll(dice_num, dice_kind, 1), $a = Opal.to_ary($b), (_ = ($a[0] == null ? nil : $a[0])), (result_string = ($a[1] == null ? nil : $a[1])), $b;
-        result_str_arr = result_string.$split(",");
-        no_use_dice_num = $rb_minus(dice_num, dice_use_num);
-        dice_value = 0;
-        $send(result_str_arr.$size(), 'times', [], ($$22 = function(i){var self = $$22.$$s || this, $writer = nil;
-
-        
-          
-          if (i == null) {
-            i = nil;
-          };
-          if ($truthy($rb_lt(i, no_use_dice_num))) {
-            
-            $writer = [i, $rb_plus($rb_plus("(", result_str_arr['$[]'](i)), ")")];
-            $send(result_str_arr, '[]=', Opal.to_a($writer));
-            return $writer[$rb_minus($writer["length"], 1)];
-          } else {
-            return (dice_value = $rb_plus(dice_value, result_str_arr['$[]'](i).$to_i()))
-          };}, $$22.$$s = self, $$22.$$arity = 1, $$22));
-        output = $rb_plus($rb_plus("(", string), ")");
-        output = $rb_plus(output, " ＞ ");
-        output = $rb_plus(output, $rb_plus($rb_plus("" + (dice_value) + "[", result_str_arr.$join(",")), "]"));
-        output = $rb_plus(output, plus_string);
-        output = $rb_plus(output, " ＞ ");
-        if ($truthy($rb_le(dice_value, fumble))) {
-          output = $rb_plus(output, "ファンブル")
-        } else if ($truthy($rb_ge(dice_value, special))) {
-          output = $rb_plus(output, "スペシャル(生命点1点か変調1つ回復)")
-        } else if ($truthy($rb_ge($rb_plus(dice_value, pluses), target))) {
-          output = $rb_plus(output, "成功")
-        } else {
-          output = $rb_plus(output, "失敗")
-        };
-        return output;};
-      return nil;
-    }, $ShinobiGami_checkDaiGonGenRoll$21.$$arity = 1);
-    
-    Opal.def(self, '$getTotalAdd', $ShinobiGami_getTotalAdd$23 = function $$getTotalAdd(string) {
-      var $$24, self = this, str = nil, arr = nil, result = nil, ok_flag = nil;
-
-      
-      str = string.$gsub("+", " +").$gsub("-", " -");
-      arr = str.$split(" ");
-      result = 0;
-      ok_flag = true;
-      $send(arr, 'each', [], ($$24 = function(item){var self = $$24.$$s || this;
-
-      
-        
-        if (item == null) {
-          item = nil;
-        };
-        if ($truthy(/[\+\-]\d+/['$=~'](item))) {
-          return (result = $rb_plus(result, item.$to_i()))
-        } else {
-          return (ok_flag = false)
-        };}, $$24.$$s = self, $$24.$$arity = 1, $$24));
-      return (function() {if ($truthy(ok_flag)) {
-        return result
-      } else {
-        return nil
-      }; return nil; })();
-    }, $ShinobiGami_getTotalAdd$23.$$arity = 1)
     
     Opal.def(self, '$sinobigami_random_skill_table', $ShinobiGami_sinobigami_random_skill_table$4 = function $$sinobigami_random_skill_table() {
       var $a, $b, self = this, skill_table = nil, value1 = nil, table_name = nil, skill = nil, value2 = nil;
